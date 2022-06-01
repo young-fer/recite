@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_root"
+    tools:context=".MainActivity">
+
+
+<!--    <View-->
+<!--        android:id="@+id/div_tab_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="2px"-->
+<!--        android:layout_above="@id/rg_tab_bar"-->
+<!--        android:background="@color/white"/>-->
+
+    <FrameLayout
+        android:id="@+id/ry_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RadioGroup
+        android:id="@+id/rg_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="#00FFFFFF"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_index"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/tab_menu_index"/>
+
+        <RadioButton
+            android:id="@+id/rb_date"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/tab_menu_date"/>
+
+        <RadioButton
+            android:id="@+id/rb_admin"
+            style="@style/tab_menu_item"
+            android:drawableTop="@drawable/tab_menu_admin"/>
+
+    </RadioGroup>
+
+</RelativeLayout>
