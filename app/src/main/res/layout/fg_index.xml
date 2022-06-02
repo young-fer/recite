@@ -1,24 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:StuButton="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_index"
     android:background="@drawable/bg">
 
-    <TextView
+
+    <LinearLayout
+        android:id="@+id/study_btn_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试"
-        android:textSize="50sp"
-        />
-
-    <TextView
-        android:id="@+id/txt_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:gravity="center"
-        android:text="首页页面"
-        android:textSize="20sp"/>
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true">
+
+        <com.example.recite.component.StuButton
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            StuButton:tag="Learn"
+            StuButton:num="497"
+            />
+
+        <com.example.recite.component.StuButton
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            StuButton:tag="Review"
+            StuButton:num="0"
+            />
+
+<!--        <Button-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/stu_btn"-->
+<!--            android:text="Learn"-->
+<!--            android:textSize="20sp">-->
+<!--        </Button>-->
+
+<!--        <Button-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/stu_btn"-->
+<!--            android:text="Review"-->
+<!--            android:textSize="20sp" />-->
+    </LinearLayout>
+
+
 
 </RelativeLayout>

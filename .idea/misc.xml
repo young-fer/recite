@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/stu_btn.xml" value="0.2025" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_admin.xml" value="0.1855" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_bg.xml" value="0.1235" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_date.xml" value="0.1855" />
@@ -11,7 +12,7 @@
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/fg_admin.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/fg_date.xml" value="0.25364583333333335" />
-        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/fg_index.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/fg_index.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/test.xml" value="0.25364583333333335" />
       </map>
     </option>

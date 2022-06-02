@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,10 @@ public class IndexFragment extends Fragment{
         RelativeLayout rlRoot = view.findViewById(R.id.rl_index);
         //  设置根布局的paddingTop
         rlRoot.setPadding(0, Tool.contentPadding, 0, 0);
+
+
+
+
         return view;
     }
 }
