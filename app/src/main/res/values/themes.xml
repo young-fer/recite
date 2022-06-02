@@ -32,7 +32,5 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="as">
 
-    </style>
 </resources>

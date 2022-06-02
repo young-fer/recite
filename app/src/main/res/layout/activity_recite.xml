@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_recite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:WordText="http://schemas.android.com/apk/res-auto"
+    xmlns:OptionButton="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <com.example.recite.component.WordText
+        android:id="@+id/word_text"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        WordText:word_tag="solidarity"
+        android:layout_margin="15dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/word_text"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+
+        <com.example.recite.component.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            OptionButton:option_features="n."
+            OptionButton:option_meaning="团结"
+            android:background="@drawable/option_btn"
+            />
+
+        <com.example.recite.component.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            OptionButton:option_features="n."
+            OptionButton:option_meaning="团结"
+            android:background="@drawable/option_btn"/>
+
+        <com.example.recite.component.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            OptionButton:option_features="n."
+            OptionButton:option_meaning="团结"
+            android:background="@drawable/option_btn"/>
+
+        <com.example.recite.component.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            OptionButton:option_features="n."
+            OptionButton:option_meaning="团结"
+            android:background="@drawable/option_btn"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

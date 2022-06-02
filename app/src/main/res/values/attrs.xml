@@ -6,4 +6,14 @@
         <attr name="num" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="word_text">
+        <attr name="word_tag" format="string" />
+        <attr name="word_num" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="option_button">
+        <attr name="option_features" format="string" />
+        <attr name="option_meaning" format="string" />
+    </declare-styleable>
+
 </resources>

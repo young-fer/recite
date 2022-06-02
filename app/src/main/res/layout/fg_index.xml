@@ -19,6 +19,7 @@
         android:layout_alignParentBottom="true">
 
         <com.example.recite.component.StuButton
+            android:id="@+id/learn_btn"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginLeft="15dp"
@@ -28,6 +29,7 @@
             />
 
         <com.example.recite.component.StuButton
+            android:id="@+id/review_btn"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginLeft="15dp"
@@ -36,24 +38,6 @@
             StuButton:num="0"
             />
 
-<!--        <Button-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="70dp"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@drawable/stu_btn"-->
-<!--            android:text="Learn"-->
-<!--            android:textSize="20sp">-->
-<!--        </Button>-->
-
-<!--        <Button-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="70dp"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@drawable/stu_btn"-->
-<!--            android:text="Review"-->
-<!--            android:textSize="20sp" />-->
     </LinearLayout>
 
 
