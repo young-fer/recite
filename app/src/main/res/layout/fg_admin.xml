@@ -1,16 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/rl_admin"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    >
 
-    <TextView
-        android:id="@+id/txt_content"
+    <LinearLayout
+        android:id="@+id/ll_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="个人页面"
-        android:textSize="20sp"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_stu_info"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_below="@id/ll_info"
+        android:background="@drawable/stu_info_bg"
+        android:layout_margin="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="456"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:textColor="#00BBC9"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="已学单词"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="256"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:textColor="#00BBC9"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="未学单词"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_stu_info"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/admin_menu_item_bg">
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:text="学习计划"
+                android:gravity="fill_vertical"
+                android:textSize="20sp"
+                android:paddingLeft="20dp"
+                />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/go"
+                android:scaleX="0.3"
+                android:scaleY="0.3"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/admin_menu_item_bg">
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:text="关于"
+                android:gravity="fill_vertical"
+                android:textSize="20sp"
+                android:paddingLeft="20dp"
+                />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/go"
+                android:scaleX="0.3"
+                android:scaleY="0.3"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

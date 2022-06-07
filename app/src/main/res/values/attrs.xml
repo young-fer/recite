@@ -16,4 +16,7 @@
         <attr name="option_meaning" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="control_button">
+        <attr name="control_tag" format="string" />
+    </declare-styleable>
 </resources>

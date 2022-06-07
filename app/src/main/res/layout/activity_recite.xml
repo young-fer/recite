@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:WordText="http://schemas.android.com/apk/res-auto"
     xmlns:OptionButton="http://schemas.android.com/apk/res-auto"
-
+    xmlns:ControlButton="http://schemas.android.com/apk/res-auto"
     >
 
     <com.example.recite.component.WordText
@@ -30,6 +30,7 @@
             OptionButton:option_features="n."
             OptionButton:option_meaning="团结"
             android:background="@drawable/option_btn"
+            android:stateListAnimator="@null"
             />
 
         <com.example.recite.component.OptionButton
@@ -38,7 +39,8 @@
             android:layout_marginBottom="10dp"
             OptionButton:option_features="n."
             OptionButton:option_meaning="团结"
-            android:background="@drawable/option_btn"/>
+            android:background="@drawable/option_btn"
+            android:stateListAnimator="@null"/>
 
         <com.example.recite.component.OptionButton
             android:layout_width="match_parent"
@@ -46,7 +48,8 @@
             android:layout_marginBottom="10dp"
             OptionButton:option_features="n."
             OptionButton:option_meaning="团结"
-            android:background="@drawable/option_btn"/>
+            android:background="@drawable/option_btn"
+            android:stateListAnimator="@null"/>
 
         <com.example.recite.component.OptionButton
             android:layout_width="match_parent"
@@ -54,10 +57,37 @@
             android:layout_marginBottom="10dp"
             OptionButton:option_features="n."
             OptionButton:option_meaning="团结"
-            android:background="@drawable/option_btn"/>
+            android:background="@drawable/option_btn"
+            android:stateListAnimator="@null"/>
 
     </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+        <com.example.recite.component.ControlButton
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/control_btn"
+            ControlButton:control_tag="认识"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:stateListAnimator="@null"
+            />
+        <com.example.recite.component.ControlButton
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/control_btn"
+            ControlButton:control_tag="不认识"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:stateListAnimator="@null"
+            />
+    </LinearLayout>
 
 </RelativeLayout>
