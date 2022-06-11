@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.recite.bean.User;
 import com.example.recite.bean.Word;
 import com.example.recite.tool.Tool;
 
@@ -281,17 +282,6 @@ public class DBTool {
         Calendar calendar = Calendar.getInstance();
 
 
-
-//        Calendar calendar = Calendar.getInstance();
-//        try {
-//            calendar.setTime(sdf.parse("2021-09-20"));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("修改日期后的日历时间是：" +  sdf.format(calendar.getTime()));
-//        calendar.set(Calendar.MONTH,Calendar.JANUARY);
-//        System.out.println("修改月份后的日历时间是：" + sdf.format(calendar.getTime()));
-
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
         // 获取已经复习的次数
@@ -324,6 +314,39 @@ public class DBTool {
         sqLiteDatabase.execSQL("UPDATE study SET review = ? WHERE wordID = ? ", new String[]{date, String.valueOf(word.getWordID())});
         sqLiteDatabase.close();
 
+    }
+
+
+    public void Register(User user) {
+        String username = user.getUsername();
+        String pwd = user.getPwd();
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        sqLiteDatabase.execSQL("INSERT INTO user (username, pwd) VALUES (?, ?)", new String[] {username, pwd});
+
+        sqLiteDatabase.close();
+
+    }
+
+    @SuppressLint("Range")
+    public boolean Login(User user) {
+        String username = user.getUsername();
+        String pwd = user.getPwd();
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM user WHERE username = ? AND pwd = ?", new String[] {username, pwd});
+
+        if(cursor.moveToFirst()){
+            user.setUserID(cursor.getInt(cursor.getColumnIndex("userID")));
+            cursor.close();
+            sqLiteDatabase.close();
+            return true;
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+        return false;
     }
 
 }

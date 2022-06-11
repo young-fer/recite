@@ -7,9 +7,11 @@
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/book_bg.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/change_book_btn_bg.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/control_btn.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/login_btn_bg.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/option_btn.xml" value="0.155" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/option_btn_false.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/option_btn_true.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/radio_btn.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/rl_bg.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/stu_btn.xml" value="0.2025" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/stu_info_bg.xml" value="0.1675" />
@@ -18,8 +20,11 @@
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_date.xml" value="0.1855" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_index.xml" value="0.1855" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_text.xml" value="0.1235" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_login_card.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_recite.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_register_card.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_review.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_select_book.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_study_plan.xml" value="0.2" />
