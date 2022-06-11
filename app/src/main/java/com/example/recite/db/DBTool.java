@@ -13,7 +13,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +31,7 @@ public class DBTool {
     public DBTool(Context context) {
         this.context = context;
     }
+
     // 复制和加载区域数据库中的数据
     public String CopyDBile() throws IOException {
 
@@ -130,6 +135,43 @@ public class DBTool {
     }
 
     @SuppressLint("Range")
+    public List<Word> getReviewWords() {
+        List<Word> words = new LinkedList<>();
+        Word word = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = null;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+        date = sdf.format(calendar.getTime());
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT study.wordID as wordID, wordHead, usphone, state, review, reviewCnt From study, kaoyan " +
+                "where study.wordID = kaoyan.wordID and state='hasStudy' and review <= ? LIMIT 10", new String[]{date});
+
+        int wordID, reviewCnt;
+        String state, wordHead, usphone;
+        Cursor meanCursor;
+        while (cursor.moveToNext()) {
+            wordID = cursor.getInt(cursor.getColumnIndex("wordID"));
+            reviewCnt = cursor.getInt(cursor.getColumnIndex("reviewCnt"));
+            state = cursor.getString(cursor.getColumnIndex("state"));
+            wordHead = cursor.getString(cursor.getColumnIndex("wordHead"));
+            usphone = cursor.getString(cursor.getColumnIndex("usphone"));
+            word = new Word(wordID, wordHead, usphone);
+            word.setFinished(false);
+            setWordMean(word);
+            setFalseMeanByWord(word);
+            words.add(word);
+        }
+        cursor.close();
+
+        sqLiteDatabase.close();
+        return words;
+    }
+
+    @SuppressLint("Range")
     public void setWordMean(Word word) {
         int wordID = word.getWordID();
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
@@ -195,7 +237,7 @@ public class DBTool {
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state = 'study' ", new String[]{});
         if(cursor.moveToFirst()){
-            System.out.println(cursor.getInt(0));
+            cnt = cursor.getInt(0);
         }
         return cnt;
     }
@@ -207,10 +249,80 @@ public class DBTool {
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state != 'study' ", new String[]{});
         if(cursor.moveToFirst()){
-            System.out.println(cursor.getInt(0));
+            cnt = cursor.getInt(0);
         }
         return cnt;
     }
 
+    @SuppressLint("Range")
+    public int getReviewWordCnt() {
+        int cnt = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = null;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+        date = sdf.format(calendar.getTime());
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state == 'hasStudy' AND review <= ?", new String[]{date});
+        if(cursor.moveToFirst()){
+            cnt = cursor.getInt(0);
+        }
+        return cnt;
+    }
+
+    public void updateReviewDate(Word word) {
+        int reviewCnt = 0;
+        String date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+
+
+
+//        Calendar calendar = Calendar.getInstance();
+//        try {
+//            calendar.setTime(sdf.parse("2021-09-20"));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("修改日期后的日历时间是：" +  sdf.format(calendar.getTime()));
+//        calendar.set(Calendar.MONTH,Calendar.JANUARY);
+//        System.out.println("修改月份后的日历时间是：" + sdf.format(calendar.getTime()));
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        // 获取已经复习的次数
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT reviewCnt FROM study WHERE wordID = ?", new String[]{String.valueOf(word.getWordID())});
+        if(cursor.moveToFirst()){
+            reviewCnt = cursor.getInt(0);
+        }
+        cursor.close();
+
+        if (reviewCnt == 0) {
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+1);
+        }else if(reviewCnt == 1) {
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+2);
+        }else if(reviewCnt == 2) {
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+4);
+        }else if(reviewCnt == 3) {
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+8);
+        }else if(reviewCnt == 4) {
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+16);
+        }else if(reviewCnt > 4) {
+            if(reviewCnt % 2 == 1) {
+                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+8);
+            }else {
+                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+16);
+            }
+        }
+
+        sqLiteDatabase.execSQL("UPDATE study SET reviewCnt = ? WHERE wordID = ? ", new String[]{String.valueOf(reviewCnt+1), String.valueOf(word.getWordID())});
+        date = sdf.format(calendar.getTime());
+        sqLiteDatabase.execSQL("UPDATE study SET review = ? WHERE wordID = ? ", new String[]{date, String.valueOf(word.getWordID())});
+        sqLiteDatabase.close();
+
+    }
 
 }

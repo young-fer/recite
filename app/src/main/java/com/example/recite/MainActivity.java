@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.example.recite.bean.Word;
 import com.example.recite.db.DBTool;
 import com.example.recite.tool.Tool;
 import com.example.recite.ui.AdminFragment;

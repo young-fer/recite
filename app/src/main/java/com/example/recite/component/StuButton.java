@@ -34,6 +34,23 @@ public class StuButton extends AppCompatButton {
         ta.recycle();
     }
 
+    @Override
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     public void init() {
         paddingLeft = 60;
     }

@@ -4,24 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Service;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.recite.adapter.WordAdapter;
 import com.example.recite.bean.Word;
 import com.example.recite.component.ControlButton;
 import com.example.recite.component.OptionButton;
@@ -31,11 +22,10 @@ import com.example.recite.service.PronunciationPlayerService;
 import com.example.recite.tool.Tool;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class ReciteActivity extends AppCompatActivity {
+public class ReviewActivity extends AppCompatActivity {
     private int hasStuCnt;
     private int StuCnt;
     private int stu_index;
@@ -49,7 +39,7 @@ public class ReciteActivity extends AppCompatActivity {
 
     private RelativeLayout rl_info_body;
     private WordText word_head;
-    private ControlButton control_btn;
+    private ControlButton know_control_btn, not_know_control_btn, next_control_btn;
     private TextView tv_top_info, tv_usphone;
 
 
@@ -65,17 +55,17 @@ public class ReciteActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recite);
+        setContentView(R.layout.activity_review);
 
-        RelativeLayout rlRoot = findViewById(R.id.rl_recite);
+        RelativeLayout rlRoot = findViewById(R.id.rl_review);
         //  设置根布局的paddingTop
         rlRoot.setPadding(0, Tool.contentPadding, 0, 0);
         initView();
         init();
+
     }
 
     private void initView() {
@@ -83,34 +73,32 @@ public class ReciteActivity extends AppCompatActivity {
         ll_option = findViewById(R.id.ll_option);
         rl_info_body = findViewById(R.id.rl_info_body);
         ll_info_word_mean = findViewById(R.id.ll_info_word_mean);
-        control_btn = findViewById(R.id.control_btn);
+
+        know_control_btn = findViewById(R.id.know_control_btn);
+        not_know_control_btn = findViewById(R.id.not_know_control_btn);
+        next_control_btn = findViewById(R.id.next_control_btn);
+
         tv_top_info = findViewById(R.id.tv_top_info);
         tv_usphone = findViewById(R.id.tv_usphone);
 
-        for(int i = 0; i < ll_option.getChildCount(); ++i) {
-            ll_option.getChildAt(i).setId(i);
-            ll_option.getChildAt(i).setOnClickListener(new BtnClickListener());
-        }
-        control_btn.setOnClickListener(new ControlBtnClickListener());
+        know_control_btn.setOnClickListener(new ControlBtnClickListener());
+        not_know_control_btn.setOnClickListener(new ControlBtnClickListener());
+        next_control_btn.setOnClickListener(new ControlBtnClickListener());
         tv_usphone.setOnClickListener(new ReadTVClickListener());
-//        read_btn.setOnClickListener(new ReadBtnClickListener());
 
         bindService(new Intent(this, PronunciationPlayerService.class), connection, Service.BIND_AUTO_CREATE);
     }
 
     private void init() {
-        dbTool = new DBTool(ReciteActivity.this);
-        stuWords = dbTool.getStuWords();
-        hasStuCnt = 0;
+        dbTool = new DBTool(ReviewActivity.this);
+        stuWords = dbTool.getReviewWords();
+//        hasStuCnt = 0;
         StuCnt = stuWords.size();
         stu_index = -1;
-        isClicked = false;
+//        isClicked = false;
         updateView();
 
-
-        System.out.println(dbTool.getHasStuWordCnt());
     }
-
 
     private void updateView() {
         stu_index++;
@@ -118,12 +106,11 @@ public class ReciteActivity extends AppCompatActivity {
 
         if(hasStuCnt == StuCnt) {
             finish();
-            Intent intent = new Intent(ReciteActivity.this, SuccessActivity.class);
+            Intent intent = new Intent(ReviewActivity.this, SuccessActivity.class);
             startActivity(intent);
             return;
         }
 
-        OptionButton optionButton;
 
         Word word = null;
         for(int i = 0; i < StuCnt; ++i) {
@@ -134,42 +121,18 @@ public class ReciteActivity extends AppCompatActivity {
             }
         }
 
-        control_btn.setTag("不认识");
+        ll_info_word_mean.removeAllViews();
+        know_control_btn.setVisibility(View.VISIBLE);
+        not_know_control_btn.setVisibility(View.VISIBLE);
+        next_control_btn.setVisibility(View.GONE);
+
         word_head.setTag(word.getWordHead());
         word_head.invalidate();
-
-        Random random = new Random();
-        int r = random.nextInt(4);
-        int index = 0;
-        int false_index = 0;
-        while(index < 4) {
-            optionButton = (OptionButton) ll_option.getChildAt(index);
-            String feature, meaning;
-            if(index == r) {
-                feature = word.getPartOfSpeeches().get(0).character;
-                meaning = word.getPartOfSpeeches().get(0).mean;
-                optionButton.setCorrect(true);
-            }
-            else {
-                feature = word.getFalsePartOfSpeeches().get(false_index).character;
-                meaning = word.getFalsePartOfSpeeches().get(false_index).mean;
-                optionButton.setCorrect(false);
-                false_index++;
-            }
-            optionButton.setFeatures(feature);
-            optionButton.setMeaning(meaning);
-
-            optionButton.setBackgroundResource(R.drawable.option_btn);
-            optionButton.invalidate();
-            index++;
-        }
 
 
         tv_top_info.setText(hasStuCnt + "/" + StuCnt);
         tv_usphone.setText("[ " + word.getUsphone() + " ]");
 
-        ll_option.setVisibility(View.VISIBLE);
-        rl_info_body.setVisibility(View.GONE);
 
     }
 
@@ -186,64 +149,17 @@ public class ReciteActivity extends AppCompatActivity {
 
         ll_info_word_mean.removeAllViews();
         for(int i = 0 ; i < wordMeans.size(); ++i) {
-            TextView textView = new TextView(ReciteActivity.this);
+            TextView textView = new TextView(ReviewActivity.this);
             textView.setText(wordMeans.get(i).character + "  " + wordMeans.get(i).mean);
             textView.setTextSize(16);
             ll_info_word_mean.addView(textView, i);
         }
 
-        control_btn.setTag("下一项");
-        control_btn.invalidate();
+        know_control_btn.setVisibility(View.GONE);
+        not_know_control_btn.setVisibility(View.GONE);
+        next_control_btn.setVisibility(View.VISIBLE);
 
-        ll_option.setVisibility(View.GONE);
-        rl_info_body.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * 定义内部类，实现OnClickListener接口
-     */
-    class BtnClickListener implements View.OnClickListener
-    {
-        @Override
-        public void onClick(View v) {
-            isClicked = true;
-            OptionButton optionButton = findViewById(v.getId());
-            if (optionButton.isCorrect()) {
-                optionButton.setBackgroundResource(R.drawable.option_btn_true);
-                stuWords.get(stu_index).setFinished(true);
-                dbTool.updateReviewDate(stuWords.get(stu_index));
-                dbTool.setHasStudy(stuWords.get(stu_index));
-                hasStuCnt++;
-            }
-            else {
-                optionButton.setBackgroundResource(R.drawable.option_btn_false);
-            }
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showAnswerView();
-                }
-            }, 200);
-
-
-        }
-    }
-
-    class ControlBtnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            if(isClicked) {
-                updateView();
-                isClicked = false;
-            }
-            else {
-                isClicked = true;
-                showAnswerView();
-
-            }
-        }
+//        rl_info_body.setVisibility(View.VISIBLE);
     }
 
 
@@ -256,6 +172,28 @@ public class ReciteActivity extends AppCompatActivity {
                     pronunciationBinder.play(stuWords.get(stu_index).getWordHead());
                 }
             }).start();
+        }
+    }
+
+    class ControlBtnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.know_control_btn:
+                    stuWords.get(stu_index).setFinished(true);
+                    dbTool.updateReviewDate(stuWords.get(stu_index));
+                    hasStuCnt++;
+                    showAnswerView();
+                    break;
+                case R.id.not_know_control_btn:
+                    showAnswerView();
+                    break;
+                case R.id.next_control_btn:
+                    updateView();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

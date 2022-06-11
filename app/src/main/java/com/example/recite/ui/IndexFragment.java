@@ -18,12 +18,15 @@ import androidx.fragment.app.Fragment;
 import com.example.recite.MainActivity;
 import com.example.recite.R;
 import com.example.recite.ReciteActivity;
+import com.example.recite.ReviewActivity;
 import com.example.recite.WordListActivity;
 import com.example.recite.component.StuButton;
+import com.example.recite.db.DBTool;
 import com.example.recite.tool.Tool;
 
 public class IndexFragment extends Fragment{
     private StuButton learnBtn, reviewBtn;
+    private DBTool dbTool;
 
 
     @Nullable
@@ -34,19 +37,36 @@ public class IndexFragment extends Fragment{
         //  设置根布局的paddingTop
         rlRoot.setPadding(0, Tool.contentPadding, 0, 0);
 
+        initView(view);
         setOnclick(view);
 
 
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        learnBtn.setNum(dbTool.getHasStuWordCnt());
+        learnBtn.invalidate();
+        reviewBtn.setNum(dbTool.getReviewWordCnt());
+        reviewBtn.invalidate();
+    }
+
+    public void initView(View view) {
+        dbTool = new DBTool(view.getContext());
+        learnBtn = (StuButton) view.findViewById(R.id.learn_btn);
+        reviewBtn = (StuButton) view.findViewById(R.id.review_btn);
+
+    }
+
+
     /**
      * 设置点击事件
      */
     private void setOnclick(View view) {
-        learnBtn = (StuButton) view.findViewById(R.id.learn_btn);
         learnBtn.setOnClickListener(new BtnClickListener());
-        reviewBtn = (StuButton) view.findViewById(R.id.review_btn);
         reviewBtn.setOnClickListener(new BtnClickListener());
     }
 
@@ -62,12 +82,10 @@ public class IndexFragment extends Fragment{
                 case R.id.learn_btn:
                     Intent intent = new Intent(getActivity(), ReciteActivity.class);
                     startActivity(intent);
-//                    Toast.makeText(getActivity().getApplicationContext(), "学习按钮被点击了", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.review_btn:
-                    Intent intent1 = new Intent(getActivity(), WordListActivity.class);
+                    Intent intent1 = new Intent(getActivity(), ReviewActivity.class);
                     startActivity(intent1);
-//                    Toast.makeText(getActivity().getApplicationContext(), "复习按钮被点击了", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

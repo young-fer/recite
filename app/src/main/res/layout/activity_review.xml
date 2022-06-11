@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_review"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:WordText="http://schemas.android.com/apk/res-auto"
+    xmlns:ControlButton="http://schemas.android.com/apk/res-auto"
+    >
+
+    <TextView
+        android:id="@+id/tv_top_info"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="25dp"
+        android:text="0/10" />
+
+
+    <com.example.recite.component.WordText
+        android:id="@+id/word_head"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        WordText:word_tag="solidarity" />
+
+    <TextView
+        android:id="@+id/tv_usphone"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/word_head"
+        android:paddingLeft="25dp"
+        android:text="[]" />
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_info_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_usphone"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/ll_info_word_mean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginStart="15dp"
+            >
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_info_sentence_mean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_info_word_mean"
+            android:background="@drawable/stu_info_bg"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_sentence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="The business of life is the acquisition of memories"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_mean"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_sentence"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="30dp"
+                android:text="人生就是不断获得回忆的过程"
+                android:textSize="15sp"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+        <com.example.recite.component.ControlButton
+            android:id="@+id/know_control_btn"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/control_btn"
+            ControlButton:control_tag="认识"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:stateListAnimator="@null"
+            />
+        <com.example.recite.component.ControlButton
+            android:id="@+id/not_know_control_btn"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/control_btn"
+            ControlButton:control_tag="不认识"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:stateListAnimator="@null"
+            />
+        <com.example.recite.component.ControlButton
+            android:id="@+id/next_control_btn"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/control_btn"
+            ControlButton:control_tag="下一项"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:stateListAnimator="@null"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
