@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.recite.bean.Word;
+import com.example.recite.tool.Tool;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -111,7 +112,7 @@ public class DBTool {
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT study.wordID as wordID, wordHead, usphone, state, review, reviewCnt From study, kaoyan " +
-                "where study.wordID = kaoyan.wordID and state='study' LIMIT 10", new String[]{});
+                "where study.wordID = kaoyan.wordID and state='study' AND bookID = ? AND userID = ? LIMIT 10", new String[]{String.valueOf(Tool.bookID), String.valueOf(Tool.userID)});
 
         int wordID, reviewCnt;
         String state, wordHead, usphone;
@@ -226,7 +227,7 @@ public class DBTool {
         int wordID = word.getWordID();
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getWritableDatabase();
-        sqLiteDatabase.execSQL("UPDATE study SET state = 'hasStudy' where wordID = ?", new String[] {String.valueOf(wordID)});
+        sqLiteDatabase.execSQL("UPDATE study SET state = 'hasStudy' where wordID = ? AND bookID = ? AND userID = ?", new String[] {String.valueOf(wordID), String.valueOf(Tool.bookID) , String.valueOf(Tool.userID)});
         sqLiteDatabase.close();
     }
 
@@ -235,7 +236,7 @@ public class DBTool {
         int cnt = 0;
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state = 'study' ", new String[]{});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state = 'study' AND userID = ? AND bookID = ?", new String[]{String.valueOf(Tool.userID), String.valueOf(Tool.bookID)});
         if(cursor.moveToFirst()){
             cnt = cursor.getInt(0);
         }
@@ -247,7 +248,7 @@ public class DBTool {
         int cnt = 0;
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state != 'study' ", new String[]{});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state != 'study' AND userID = ?", new String[]{String.valueOf(Tool.userID)});
         if(cursor.moveToFirst()){
             cnt = cursor.getInt(0);
         }
@@ -266,7 +267,7 @@ public class DBTool {
 
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state == 'hasStudy' AND review <= ?", new String[]{date});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state == 'hasStudy' AND userID = ? AND review <= ?", new String[]{String.valueOf(Tool.userID), date});
         if(cursor.moveToFirst()){
             cnt = cursor.getInt(0);
         }
@@ -294,7 +295,7 @@ public class DBTool {
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
         // 获取已经复习的次数
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT reviewCnt FROM study WHERE wordID = ?", new String[]{String.valueOf(word.getWordID())});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT reviewCnt FROM study WHERE wordID = ? AND userID = ? AND bookID = ?", new String[]{String.valueOf(word.getWordID()), String.valueOf(Tool.userID), String.valueOf(Tool.bookID)});
         if(cursor.moveToFirst()){
             reviewCnt = cursor.getInt(0);
         }

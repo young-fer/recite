@@ -34,10 +34,6 @@ public class WordListActivity extends AppCompatActivity {
         initView();
         initData();
 
-//        words = new LinkedList<>();
-//        words.add(new Word(1, "APPLE", "苹果"));
-//        words.add(new Word(2, "BANANA", "香蕉"));
-//        words.add(new Word(2, "ORANGE", "橙子"));
 
         wordAdapter = new WordAdapter((LinkedList<Word>)words, mContext);
         listView.setAdapter(wordAdapter);

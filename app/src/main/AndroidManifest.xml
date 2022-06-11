@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recite">
         <activity
+            android:name=".SelectBookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudyPlanActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReviewActivity"
             android:exported="false" />
 

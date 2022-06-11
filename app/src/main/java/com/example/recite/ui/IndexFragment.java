@@ -27,6 +27,7 @@ import com.example.recite.tool.Tool;
 public class IndexFragment extends Fragment{
     private StuButton learnBtn, reviewBtn;
     private DBTool dbTool;
+    private View context;
 
 
     @Nullable
@@ -36,6 +37,8 @@ public class IndexFragment extends Fragment{
         RelativeLayout rlRoot = view.findViewById(R.id.rl_index);
         //  设置根布局的paddingTop
         rlRoot.setPadding(0, Tool.contentPadding, 0, 0);
+
+        context = view;
 
         initView(view);
         setOnclick(view);
@@ -84,8 +87,12 @@ public class IndexFragment extends Fragment{
                     startActivity(intent);
                     break;
                 case R.id.review_btn:
-                    Intent intent1 = new Intent(getActivity(), ReviewActivity.class);
-                    startActivity(intent1);
+                    if (dbTool.getReviewWordCnt() == 0) {
+                        Toast.makeText(context.getContext(), "没有复习的单词", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent intent1 = new Intent(getActivity(), ReviewActivity.class);
+                        startActivity(intent1);
+                    }
                     break;
                 default:
                     break;

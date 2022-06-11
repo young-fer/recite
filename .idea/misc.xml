@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/admin_menu_item_bg.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/book_bg.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/change_book_btn_bg.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/control_btn.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/option_btn.xml" value="0.155" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/option_btn_false.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/option_btn_true.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/rl_bg.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/stu_btn.xml" value="0.2025" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/stu_info_bg.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/drawable/tab_menu_admin.xml" value="0.1855" />
@@ -18,6 +21,8 @@
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_recite.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_review.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_select_book.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_study_plan.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_success.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/activity_word_list.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Recite/app/src/main/res/layout/fg_admin.xml" value="0.264" />

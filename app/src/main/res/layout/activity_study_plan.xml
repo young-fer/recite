@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudyPlanActivity"
+    android:id="@+id/rl_stu_plan">
+
+    <RelativeLayout
+        android:id="@+id/rl_studying"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_studying"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="正在学习"
+            android:textSize="25sp"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/change_book_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/change_book_btn_bg"
+            android:text="换本词书"
+            android:padding="5dp"
+            android:textColor="#01A6B3"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/rl_studying"
+        android:background="@drawable/rl_bg">
+
+        <ImageView
+            android:layout_margin="15dp"
+            android:layout_width="140dp"
+            android:layout_height="180dp"
+            android:src="@drawable/book1"
+            android:background="@drawable/book_bg"
+            android:padding="15dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

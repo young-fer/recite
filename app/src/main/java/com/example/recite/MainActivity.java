@@ -46,11 +46,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DBTool dbTool = new DBTool(MainActivity.this);
+        Tool.userID = 1;
+        Tool.bookID = 2;
+
         try {
             dbTool.CopyDBile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
         initView();
     }
