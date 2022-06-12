@@ -2,14 +2,19 @@ package com.example.recite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -22,6 +27,7 @@ import com.example.recite.component.ControlButton;
 import com.example.recite.component.OptionButton;
 import com.example.recite.component.WordText;
 import com.example.recite.db.DBTool;
+import com.example.recite.service.PronunciationPlayerService;
 import com.example.recite.tool.Tool;
 
 import java.util.ArrayList;
@@ -32,17 +38,34 @@ import java.util.Random;
 public class ReciteActivity extends AppCompatActivity {
     private int hasStuCnt;
     private int StuCnt;
+    private int stu_index;
     private boolean isClicked;
 
     private DBTool dbTool = null;
     private List<Word> stuWords = null;
     private ArrayList<Word.PartOfSpeech> wordMeans = null;
     private LinearLayout ll_option, ll_info_word_mean;
+
+
     private RelativeLayout rl_info_body;
     private WordText word_head;
     private ControlButton control_btn;
-    private TextView tv_top_info;
-    private int stu_index;
+    private TextView tv_top_info, tv_usphone;
+    private Button read_btn;
+
+
+    // 单词读音
+    private PronunciationPlayerService.PlayPronunciationBinder pronunciationBinder;
+    private ServiceConnection connection =  new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            pronunciationBinder = (PronunciationPlayerService.PlayPronunciationBinder) iBinder;
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +86,17 @@ public class ReciteActivity extends AppCompatActivity {
         ll_info_word_mean = findViewById(R.id.ll_info_word_mean);
         control_btn = findViewById(R.id.control_btn);
         tv_top_info = findViewById(R.id.tv_top_info);
+        tv_usphone = findViewById(R.id.tv_usphone);
+
         for(int i = 0; i < ll_option.getChildCount(); ++i) {
             ll_option.getChildAt(i).setId(i);
             ll_option.getChildAt(i).setOnClickListener(new BtnClickListener());
         }
         control_btn.setOnClickListener(new ControlBtnClickListener());
+        tv_usphone.setOnClickListener(new ReadTVClickListener());
+//        read_btn.setOnClickListener(new ReadBtnClickListener());
 
+        bindService(new Intent(this, PronunciationPlayerService.class), connection, Service.BIND_AUTO_CREATE);
     }
 
     private void init() {
@@ -76,13 +104,19 @@ public class ReciteActivity extends AppCompatActivity {
         stuWords = dbTool.getStuWords();
         hasStuCnt = 0;
         StuCnt = stuWords.size();
-        stu_index = 0;
+        stu_index = -1;
         isClicked = false;
         updateView();
+
+
+        System.out.println(dbTool.getHasStuWordCnt());
     }
 
 
     private void updateView() {
+        stu_index++;
+        if(stu_index >= StuCnt) stu_index = 0;
+
         if(hasStuCnt == StuCnt) {
             finish();
             Intent intent = new Intent(ReciteActivity.this, SuccessActivity.class);
@@ -133,6 +167,7 @@ public class ReciteActivity extends AppCompatActivity {
 
 
         tv_top_info.setText(hasStuCnt + "/" + StuCnt);
+        tv_usphone.setText("[ " + word.getUsphone() + " ]");
 
         ll_option.setVisibility(View.VISIBLE);
         rl_info_body.setVisibility(View.GONE);
@@ -141,6 +176,12 @@ public class ReciteActivity extends AppCompatActivity {
 
     private void showAnswerView() {
 
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                pronunciationBinder.play(stuWords.get(stu_index).getWordHead());
+            }
+        }).start();
 
         wordMeans = stuWords.get(stu_index).getPartOfSpeeches();
 
@@ -183,8 +224,6 @@ public class ReciteActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     showAnswerView();
-                    stu_index++;
-                    if(stu_index >= StuCnt) stu_index = 0;
                 }
             }, 200);
 
@@ -202,12 +241,21 @@ public class ReciteActivity extends AppCompatActivity {
             else {
                 isClicked = true;
                 showAnswerView();
-                stu_index++;
-                if(stu_index >= StuCnt) stu_index = 0;
+
             }
-
-
         }
     }
 
+
+    class ReadTVClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    pronunciationBinder.play(stuWords.get(stu_index).getWordHead());
+                }
+            }).start();
+        }
+    }
 }

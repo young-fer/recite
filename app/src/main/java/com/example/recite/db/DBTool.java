@@ -18,7 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DBTool {
-
     private final String DB_NAME = "word.db";
     private SQLiteDatabase myDatabase;
     private Context context;
@@ -187,6 +186,30 @@ public class DBTool {
         SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getWritableDatabase();
         sqLiteDatabase.execSQL("UPDATE study SET state = 'hasStudy' where wordID = ?", new String[] {String.valueOf(wordID)});
         sqLiteDatabase.close();
+    }
+
+    @SuppressLint("Range")
+    public int getHasStuWordCnt() {
+        int cnt = 0;
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state = 'study' ", new String[]{});
+        if(cursor.moveToFirst()){
+            System.out.println(cursor.getInt(0));
+        }
+        return cnt;
+    }
+
+    @SuppressLint("Range")
+    public int getNotStuWordCnt() {
+        int cnt = 0;
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE state != 'study' ", new String[]{});
+        if(cursor.moveToFirst()){
+            System.out.println(cursor.getInt(0));
+        }
+        return cnt;
     }
 
 
