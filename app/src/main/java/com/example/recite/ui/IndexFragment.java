@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.example.recite.MainActivity;
 import com.example.recite.R;
 import com.example.recite.ReciteActivity;
+import com.example.recite.WordListActivity;
 import com.example.recite.component.StuButton;
 import com.example.recite.tool.Tool;
 
@@ -64,7 +65,9 @@ public class IndexFragment extends Fragment{
 //                    Toast.makeText(getActivity().getApplicationContext(), "学习按钮被点击了", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.review_btn:
-                    Toast.makeText(getActivity().getApplicationContext(), "复习按钮被点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(getActivity(), WordListActivity.class);
+                    startActivity(intent1);
+//                    Toast.makeText(getActivity().getApplicationContext(), "复习按钮被点击了", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

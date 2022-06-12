@@ -20,11 +20,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.example.recite.db.DBTool;
 import com.example.recite.tool.Tool;
 import com.example.recite.ui.AdminFragment;
 import com.example.recite.ui.DateFragment;
 import com.example.recite.ui.IndexFragment;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
@@ -42,7 +44,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        DBTool dbTool = new DBTool(MainActivity.this);
+        try {
+            dbTool.CopyDBile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         initView();
     }

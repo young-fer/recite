@@ -7,14 +7,6 @@
     android:id="@+id/ll_root"
     tools:context=".MainActivity">
 
-
-<!--    <View-->
-<!--        android:id="@+id/div_tab_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="2px"-->
-<!--        android:layout_above="@id/rg_tab_bar"-->
-<!--        android:background="@color/white"/>-->
-
     <FrameLayout
         android:id="@+id/ry_content"
         android:layout_width="match_parent"

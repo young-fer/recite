@@ -15,6 +15,7 @@ import com.example.recite.R;
 public class OptionButton extends AppCompatButton {
     String features;
     String meaning;
+    boolean correct;
     private int paddingLeft;
     private int paddingTop;
 
@@ -60,7 +61,7 @@ public class OptionButton extends AppCompatButton {
         float tagWidth = paint.measureText(features);
         int x = (int) paddingLeft;
         int y = paddingTop;
-        canvas.drawText(features, x, y, paint);
+        canvas.drawText(features, x + 10, y, paint);
         //绘制第二行文字
         Paint paint1 = new Paint();
         paint.setAntiAlias(true);
@@ -69,6 +70,30 @@ public class OptionButton extends AppCompatButton {
         float numWidth = paint.measureText(meaning + "");
         int x1 = (int) paddingLeft;
         int y1 = paddingTop + 45 + 35;
-        canvas.drawText(meaning+"", x1, y1, paint1);
+        canvas.drawText(meaning+"", x1 + 10, y1, paint1);
+    }
+
+    public String getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(String features) {
+        this.features = features;
+    }
+
+    public String getMeaning() {
+        return meaning;
+    }
+
+    public void setMeaning(String meaning) {
+        this.meaning = meaning;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 }

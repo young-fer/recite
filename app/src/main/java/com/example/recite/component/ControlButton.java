@@ -58,7 +58,7 @@ public class ControlButton extends AppCompatButton {
         Paint t_rect = new Paint();
         if(tag.equals("不认识")) {
             t_rect.setColor(Color.parseColor("#F13D3D"));
-        }else if (tag.equals("认识")) {
+        }else if (tag.equals("认识") || tag.equals("下一项")) {
             t_rect.setColor(Color.parseColor("#54F16F"));
         }else {
             t_rect.setColor(Color.parseColor("#9F9898"));
@@ -72,4 +72,12 @@ public class ControlButton extends AppCompatButton {
         canvas.drawRoundRect(new RectF(left, top, right, bottom),15,15,t_rect); //画圆角矩形
     }
 
+    @Override
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 }

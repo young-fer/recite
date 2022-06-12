@@ -43,6 +43,23 @@ public class WordText extends AppCompatTextView {
     }
 
     @Override
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -57,7 +74,6 @@ public class WordText extends AppCompatTextView {
 
         int x = (int) paddingLeft;
         int y = (int) (this.getHeight() + tagHeight/2)/2;
-        System.out.println("**********" + tagHeight);
         canvas.drawText(tag, x, y, paint);
     }
 

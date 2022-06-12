@@ -25,13 +25,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户名"
+                android:text="youngfer"
                 android:textSize="20sp"
                 android:layout_marginTop="20dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户名"
+                android:text="这是一条个性签名"
                 android:layout_marginTop="5dp"/>
         </LinearLayout>
     </LinearLayout>
@@ -111,21 +111,22 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@drawable/admin_menu_item_bg">
+
             <TextView
                 android:layout_width="160dp"
                 android:layout_height="match_parent"
-                android:text="学习计划"
                 android:gravity="fill_vertical"
-                android:textSize="20sp"
                 android:paddingLeft="20dp"
-                />
+                android:text="学习计划"
+                android:textSize="18sp" />
+
             <ImageView
-                android:layout_alignParentRight="true"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/go"
-                android:scaleX="0.3"
-                android:scaleY="0.3"/>
+                android:layout_alignParentRight="true"
+                android:scaleX="0.25"
+                android:scaleY="0.25"
+                android:src="@drawable/go" />
         </RelativeLayout>
 
 
@@ -133,21 +134,22 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@drawable/admin_menu_item_bg">
+
             <TextView
                 android:layout_width="160dp"
                 android:layout_height="match_parent"
-                android:text="关于"
                 android:gravity="fill_vertical"
-                android:textSize="20sp"
                 android:paddingLeft="20dp"
-                />
+                android:text="关于"
+                android:textSize="18sp" />
+
             <ImageView
-                android:layout_alignParentRight="true"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/go"
-                android:scaleX="0.3"
-                android:scaleY="0.3"/>
+                android:layout_alignParentRight="true"
+                android:scaleX="0.25"
+                android:scaleY="0.25"
+                android:src="@drawable/go" />
         </RelativeLayout>
 
     </LinearLayout>
