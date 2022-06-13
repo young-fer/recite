@@ -4,6 +4,7 @@ public class User {
     private int userID;
     private String username;
     private String pwd;
+    private String introduction;
     private String avatar;
 
     public User(String username, String pwd) {
@@ -43,5 +44,11 @@ public class User {
         this.avatar = avatar;
     }
 
+    public String getIntroduction() {
+        return introduction;
+    }
 
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 }

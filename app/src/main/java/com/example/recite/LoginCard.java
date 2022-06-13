@@ -56,7 +56,7 @@ public class LoginCard extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = ev_pwd.getText().toString();
+                String username = ev_user.getText().toString();
                 String pwd = ev_pwd.getText().toString();
                 User user = new User(username, pwd);
 
@@ -66,9 +66,14 @@ public class LoginCard extends AppCompatActivity {
                     Intent i = new Intent();
                     i.putExtra("isLogin", true);
                     setResult(1, i);
+                    Tool.userID = user.getUserID();
+                    Tool.bookID = 2;
                     finish();
                 }else {
                     Toast.makeText(LoginCard.this, "登录失败", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent();
+                    i.putExtra("isLogin", false);
+                    setResult(1, i);
                 }
             }
         });

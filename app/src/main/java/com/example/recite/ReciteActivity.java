@@ -1,6 +1,7 @@
 package com.example.recite;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Service;
 import android.content.ComponentName;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recite.adapter.MyPagerAdapter;
 import com.example.recite.adapter.WordAdapter;
 import com.example.recite.bean.Word;
 import com.example.recite.component.ControlButton;
@@ -93,7 +95,6 @@ public class ReciteActivity extends AppCompatActivity {
         }
         control_btn.setOnClickListener(new ControlBtnClickListener());
         tv_usphone.setOnClickListener(new ReadTVClickListener());
-//        read_btn.setOnClickListener(new ReadBtnClickListener());
 
         bindService(new Intent(this, PronunciationPlayerService.class), connection, Service.BIND_AUTO_CREATE);
     }
@@ -106,9 +107,6 @@ public class ReciteActivity extends AppCompatActivity {
         stu_index = -1;
         isClicked = false;
         updateView();
-
-
-        System.out.println(dbTool.getHasStuWordCnt());
     }
 
 
@@ -175,6 +173,8 @@ public class ReciteActivity extends AppCompatActivity {
 
     private void showAnswerView() {
 
+        setVp();
+
         new Thread(new Runnable(){
             @Override
             public void run() {
@@ -189,6 +189,7 @@ public class ReciteActivity extends AppCompatActivity {
             TextView textView = new TextView(ReciteActivity.this);
             textView.setText(wordMeans.get(i).character + "  " + wordMeans.get(i).mean);
             textView.setTextSize(16);
+            textView.setTextColor(Color.parseColor("#000000"));
             ll_info_word_mean.addView(textView, i);
         }
 
@@ -197,6 +198,16 @@ public class ReciteActivity extends AppCompatActivity {
 
         ll_option.setVisibility(View.GONE);
         rl_info_body.setVisibility(View.VISIBLE);
+    }
+
+
+    private void setVp() {
+        ArrayList<Word.Sentence> sentenceArrayList = stuWords.get(stu_index).getSentences();
+        for (int i = 0; i < sentenceArrayList.size(); ++i) {
+            System.out.println(sentenceArrayList.get(i).sContent);
+        }
+        ViewPager vp = (ViewPager) findViewById(R.id.vp);
+        vp.setAdapter(new MyPagerAdapter(this,sentenceArrayList));
     }
 
     /**
@@ -213,6 +224,7 @@ public class ReciteActivity extends AppCompatActivity {
                 stuWords.get(stu_index).setFinished(true);
                 dbTool.updateReviewDate(stuWords.get(stu_index));
                 dbTool.setHasStudy(stuWords.get(stu_index));
+                dbTool.setStudyTime(stuWords.get(stu_index));
                 hasStuCnt++;
             }
             else {

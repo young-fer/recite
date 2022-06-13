@@ -27,7 +27,7 @@ import com.example.recite.tool.Tool;
 public class AdminFragment extends Fragment{
     private DBTool dbTool;
     private TextView tv_has_study, tv_not_study;
-    private RelativeLayout rl_stu_plan;
+    private RelativeLayout rl_stu_plan, rl_update_user_info;
     private View view;
 
     @Nullable
@@ -81,16 +81,28 @@ public class AdminFragment extends Fragment{
         tv_has_study = view.findViewById(R.id.tv_has_study);
         tv_not_study = view.findViewById(R.id.tv_not_study);
         rl_stu_plan =  view.findViewById(R.id.rl_stu_plan);
+        rl_update_user_info =  view.findViewById(R.id.rl_update_user_info);
 
         rl_stu_plan.setOnClickListener(new ClickListener());
+        rl_update_user_info.setOnClickListener(new ClickListener());
 
     }
 
     class ClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(view.getContext(), StudyPlanActivity.class);
-            startActivity(intent);
+            switch (v.getId()){
+                case R.id.rl_stu_plan:
+                    Intent intent = new Intent(view.getContext(), StudyPlanActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.rl_update_user_info:
+
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 

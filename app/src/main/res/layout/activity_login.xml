@@ -6,6 +6,15 @@
     tools:context=".LoginActivity"
     android:id="@+id/rl_root">
 
+
+    <ImageView
+        android:id="@+id/iv_beige"
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/beige" />
+
     <TextView
         android:id="@+id/tv_title"
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
@@ -13,21 +22,23 @@
         android:layout_height="wrap_content"
         android:text="真实语境学单词"
         android:textSize="20sp"
-        android:layout_centerInParent="true"
-
+        android:layout_below="@id/iv_beige"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         />
 
     <Button
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_below="@id/tv_title"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/login_btn_bg"
         android:text="登录"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_marginTop="100dp"
+        android:layout_above="@id/register_btn"/>
 
     <Button
         android:id="@+id/register_btn"
@@ -39,7 +50,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/login_btn_bg"
-        android:layout_below="@id/login_btn"
+        android:layout_above="@id/checkbox"
         />
 
     <CheckBox

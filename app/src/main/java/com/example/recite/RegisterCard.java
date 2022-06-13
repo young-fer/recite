@@ -53,12 +53,22 @@ public class RegisterCard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String username = ev_pwd.getText().toString();
+                String username = ev_user.getText().toString();
                 String pwd = ev_pwd.getText().toString();
                 if (username.length() >= 6 && pwd.length() >= 6) {
                     User user = new User(username, pwd);
                     dbTool.Register(user);
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            dbTool.registerBook(user);
+                            System.out.println("允许");
+                        }
+                    }.start();
+
+
                     Toast.makeText(RegisterCard.this, "注册成功", Toast.LENGTH_SHORT).show();
+
                     finish();
                 }else {
                     Toast.makeText(RegisterCard.this, "注册失败", Toast.LENGTH_SHORT).show();

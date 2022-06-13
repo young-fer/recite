@@ -18,7 +18,10 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.recite.db.DBTool;
 import com.example.recite.tool.Tool;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
     private CheckBox checkbox;
@@ -32,6 +35,15 @@ public class LoginActivity extends AppCompatActivity {
         RelativeLayout rlRoot = findViewById(R.id.rl_root);
         //  设置根布局的paddingTop
         rlRoot.setPadding(0, Tool.contentPadding, 0, 0);
+
+        DBTool dbTool = new DBTool(LoginActivity.this);
+
+        try {
+            dbTool.CopyDBile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         initView();
 
 
@@ -61,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
 //                    startActivity(new Intent(LoginActivity.this, LoginCard.class));
                         Intent intent = new Intent(LoginActivity.this, LoginCard.class);
                         startActivityForResult(intent, 1);
-
                         break;
                     case R.id.register_btn:
                         startActivity(new Intent(LoginActivity.this, RegisterCard.class));

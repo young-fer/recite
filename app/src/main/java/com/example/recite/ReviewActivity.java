@@ -1,11 +1,14 @@
 package com.example.recite;
 
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.recite.adapter.MyPagerAdapter;
 import com.example.recite.bean.Word;
 import com.example.recite.component.ControlButton;
 import com.example.recite.component.OptionButton;
@@ -92,15 +96,14 @@ public class ReviewActivity extends AppCompatActivity {
     private void init() {
         dbTool = new DBTool(ReviewActivity.this);
         stuWords = dbTool.getReviewWords();
-//        hasStuCnt = 0;
         StuCnt = stuWords.size();
         stu_index = -1;
-//        isClicked = false;
         updateView();
 
     }
 
     private void updateView() {
+        clearVp();
         stu_index++;
         if(stu_index >= StuCnt) stu_index = 0;
 
@@ -137,6 +140,7 @@ public class ReviewActivity extends AppCompatActivity {
     }
 
     private void showAnswerView() {
+        setVp();
 
         new Thread(new Runnable(){
             @Override
@@ -152,14 +156,28 @@ public class ReviewActivity extends AppCompatActivity {
             TextView textView = new TextView(ReviewActivity.this);
             textView.setText(wordMeans.get(i).character + "  " + wordMeans.get(i).mean);
             textView.setTextSize(16);
+            textView.setTextColor(Color.parseColor("#000000"));
             ll_info_word_mean.addView(textView, i);
         }
 
         know_control_btn.setVisibility(View.GONE);
         not_know_control_btn.setVisibility(View.GONE);
         next_control_btn.setVisibility(View.VISIBLE);
+    }
 
-//        rl_info_body.setVisibility(View.VISIBLE);
+    private void setVp() {
+        ArrayList<Word.Sentence> sentenceArrayList = stuWords.get(stu_index).getSentences();
+        for (int i = 0; i < sentenceArrayList.size(); ++i) {
+            System.out.println(sentenceArrayList.get(i).sContent);
+        }
+        ViewPager vp = (ViewPager) findViewById(R.id.vp);
+        vp.setAdapter(new MyPagerAdapter(this,sentenceArrayList));
+    }
+
+    private void clearVp() {
+        ArrayList<Word.Sentence> sentenceArrayList = new ArrayList<>();
+        ViewPager vp = (ViewPager) findViewById(R.id.vp);
+        vp.setAdapter(new MyPagerAdapter(this, sentenceArrayList));
     }
 
 
@@ -182,6 +200,7 @@ public class ReviewActivity extends AppCompatActivity {
                 case R.id.know_control_btn:
                     stuWords.get(stu_index).setFinished(true);
                     dbTool.updateReviewDate(stuWords.get(stu_index));
+                    dbTool.setReviewTime(stuWords.get(stu_index));
                     hasStuCnt++;
                     showAnswerView();
                     break;

@@ -133,6 +133,28 @@
                 android:src="@drawable/go" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/rl_update_user_info"
+            android:background="@drawable/admin_menu_item_bg">
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:gravity="fill_vertical"
+                android:paddingLeft="20dp"
+                android:text="修改信息"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:scaleX="0.25"
+                android:scaleY="0.25"
+                android:src="@drawable/go" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

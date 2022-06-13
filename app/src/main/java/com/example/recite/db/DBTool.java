@@ -128,6 +128,7 @@ public class DBTool {
             word.setFinished(false);
             setWordMean(word);
             setFalseMeanByWord(word);
+            setSentence(word);
             words.add(word);
         }
         cursor.close();
@@ -165,6 +166,7 @@ public class DBTool {
             word.setFinished(false);
             setWordMean(word);
             setFalseMeanByWord(word);
+            setSentence(word);
             words.add(word);
         }
         cursor.close();
@@ -193,6 +195,21 @@ public class DBTool {
             }
         }
         meanCursor.close();
+    }
+
+    @SuppressLint("Range")
+    public void setSentence(Word word) {
+        int wordID = word.getWordID();
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM sentences where wordID = ?", new String[]{String.valueOf(wordID)});
+        while (cursor.moveToNext())
+        {
+            String sContent = cursor.getString(cursor.getColumnIndex("sContent"));
+            String sCn = cursor.getString(cursor.getColumnIndex("sCn"));
+            word.addSentence(sContent, sCn);
+        }
+        cursor.close();
     }
 
     @SuppressLint("Range")
@@ -349,4 +366,100 @@ public class DBTool {
         return false;
     }
 
+    @SuppressLint("Range")
+    public void registerBook(User user) {
+        int bookID, wordID, userID = 0;
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT userID FROM user where username = ? and pwd = ?", new String[]{user.getUsername(), user.getPwd()});
+        if(cursor.moveToFirst()){
+            userID = cursor.getInt(cursor.getColumnIndex("userID"));
+        }
+        cursor.close();
+        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM wordByBook", new String[]{});
+
+        while (cursor1.moveToNext()) {
+
+            bookID = cursor1.getInt(cursor1.getColumnIndex("bookID"));
+            wordID = cursor1.getInt(cursor1.getColumnIndex("wordID"));
+//            System.out.println(wordID);
+            sqLiteDatabase.execSQL("INSERT INTO study (userID, bookID, wordID, state, reviewCnt) " +
+                    "VALUES (?, ?, ?, 'study', 0)", new String[]{String.valueOf(userID), String.valueOf(bookID), String.valueOf(wordID)});
+        }
+        cursor1.close();
+        sqLiteDatabase.close();
+    }
+
+    @SuppressLint("Range")
+    public void setStudyTime(Word word) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = null;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+        date = sdf.format(calendar.getTime());
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        sqLiteDatabase.execSQL("UPDATE study SET studyTime = ? " +
+                "WHERE wordID = ? AND userID = ? AND bookID = ?", new String[] {date, String.valueOf(word.getWordID()), String.valueOf(Tool.userID), String.valueOf(Tool.bookID)});
+        sqLiteDatabase.close();
+
+
+    }
+
+    @SuppressLint("Range")
+    public void setReviewTime(Word word) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = null;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+        date = sdf.format(calendar.getTime());
+
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        sqLiteDatabase.execSQL("UPDATE study SET reviewTime = ? " +
+                "WHERE wordID = ? AND userID = ? AND bookID = ?", new String[] {date, String.valueOf(word.getWordID()), String.valueOf(Tool.userID), String.valueOf(Tool.bookID)});
+        sqLiteDatabase.close();
+    }
+
+    public int getStudyCntByTime(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(calendar.getTime());
+        int cnt = 0;
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE studyTime = ? AND userID = ?", new String[]{date, String.valueOf(Tool.userID)});
+        if(cursor.moveToFirst()){
+            cnt = cursor.getInt(0);
+        }
+        return cnt;
+    }
+
+    public int getReviewCntByTime(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(calendar.getTime());
+        int cnt = 0;
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM study WHERE reviewTime = ? AND userID = ?", new String[]{date, String.valueOf(Tool.userID)});
+        if(cursor.moveToFirst()){
+            cnt = cursor.getInt(0);
+        }
+        return cnt;
+    }
+
+    @SuppressLint("Range")
+    public void setUserInfo(User user) {
+        MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(context, "word.db", null, 1);
+        SQLiteDatabase sqLiteDatabase = myDBOpenHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT count(*) FROM user WHERE userID = ?", new String[]{String.valueOf(Tool.userID)});
+        if(cursor.moveToFirst()){
+            user.setIntroduction(cursor.getString(cursor.getColumnIndex("introduction")));
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+    }
 }

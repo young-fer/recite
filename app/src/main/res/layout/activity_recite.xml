@@ -34,12 +34,6 @@
         android:paddingLeft="25dp"
         android:text="[]" />
 
-<!--    <Button-->
-<!--        android:id="@+id/read_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/word_head"-->
-<!--        android:text="播放读音"/>-->
 
     <LinearLayout
         android:id="@+id/ll_option"
@@ -48,7 +42,7 @@
         android:layout_below="@id/tv_usphone"
         android:orientation="vertical"
         android:layout_margin="15dp"
-
+        android:visibility="gone"
         >
 
         <com.example.recite.component.OptionButton
@@ -96,48 +90,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_usphone"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         >
         <LinearLayout
             android:id="@+id/ll_info_word_mean"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:orientation="vertical"
             android:padding="10dp"
             android:layout_marginStart="15dp"
             >
         </LinearLayout>
-        <RelativeLayout
-            android:id="@+id/rl_info_sentence_mean"
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/stu_info_bg"
-            android:padding="10dp"
+            android:layout_height="300dp"
             android:layout_below="@id/ll_info_word_mean"
-            >
-            <TextView
-                android:id="@+id/tv_sentence"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="The business of life is the acquisition of memories"
-                android:textSize="20sp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                />
-
-            <TextView
-                android:id="@+id/tv_mean"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_sentence"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="30dp"
-                android:text="人生就是不断获得回忆的过程"
-                android:textSize="15sp" />
-
-        </RelativeLayout>
+            android:background="@drawable/rl_bg"
+            android:padding="15dp" />
 
     </RelativeLayout>
 
@@ -147,16 +118,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
-<!--        <com.example.recite.component.ControlButton-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="70dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@drawable/control_btn"-->
-<!--            ControlButton:control_tag="认识"-->
-<!--            android:layout_marginLeft="5dp"-->
-<!--            android:layout_marginRight="5dp"-->
-<!--            android:stateListAnimator="@null"-->
-<!--            />-->
+
         <com.example.recite.component.ControlButton
             android:id="@+id/control_btn"
             android:layout_width="0dp"
